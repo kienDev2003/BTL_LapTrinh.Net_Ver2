@@ -14,12 +14,14 @@ namespace BTL_C_
     {
         Form formCon = null;
         int _chucVu = 0;
+        string _tenNV = "";
 
         public Home(int ChucVu, string tenNV)
         {
             InitializeComponent();
 
             lbTenNV.Text = tenNV;
+            _tenNV = tenNV;
             _chucVu = ChucVu;
             if (ChucVu != 1)
             {
@@ -137,6 +139,12 @@ namespace BTL_C_
             {
                 formCon.Close();
             }
+        }
+
+        private void lbXuatHang_Click(object sender, EventArgs e)
+        {
+            Form xuatHang = new XuatHang(_chucVu,_tenNV);
+            LoadFormCon(xuatHang);
         }
     }
 }

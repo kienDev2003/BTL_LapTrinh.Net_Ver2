@@ -16,6 +16,7 @@ E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C_.Home.resources
 E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C_.Login.resources
 E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C_.Properties.Resources.resources
 E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C_.SanPham.resources
+E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C_.XuatHang.resources
 E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C#.csproj.GenerateResource.cache
 E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C#.csproj.CoreCompileInputs.cache
 E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C#.csproj.CopyComplete

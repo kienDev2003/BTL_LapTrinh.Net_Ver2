@@ -306,6 +306,7 @@
             this.lbXuatHang.Size = new System.Drawing.Size(102, 25);
             this.lbXuatHang.TabIndex = 3;
             this.lbXuatHang.Text = "Xuất hàng";
+            this.lbXuatHang.Click += new System.EventHandler(this.lbXuatHang_Click);
             this.lbXuatHang.MouseLeave += new System.EventHandler(this.lbXuatHang_MouseLeave);
             this.lbXuatHang.MouseHover += new System.EventHandler(this.lbXuatHang_MouseHover);
             // 

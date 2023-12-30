@@ -90,6 +90,12 @@
     <Compile Include="SanPham.designer.cs">
       <DependentUpon>SanPham.cs</DependentUpon>
     </Compile>
+    <Compile Include="XuatHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XuatHang.designer.cs">
+      <DependentUpon>XuatHang.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
@@ -108,6 +114,9 @@
     </Compile>
     <EmbeddedResource Include="SanPham.resx">
       <DependentUpon>SanPham.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XuatHang.resx">
+      <DependentUpon>XuatHang.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
