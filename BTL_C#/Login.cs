@@ -18,19 +18,16 @@ namespace BTL_C_
         public Login()
         {
             InitializeComponent();
+            DBConn.GetConnection();
         }
 
         private void lbDangNhap_Click(object sender, EventArgs e)
         {
-            DBConn.GetConnection();
-
             string taiKhoan = txtTaiKhoan.Text.Trim();
             string matKhau = txtMatKhau.Text.Trim();
 
             if (taiKhoan == "" || matKhau == "") MessageBox.Show("Vui lòng nhập đầy đủ thông tin","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
             else DangNhap(taiKhoan, matKhau);
-
-            DBConn.CloseConnection();
         }
 
         private void DangNhap(string taiKhoan, string matKhau)
@@ -79,6 +76,7 @@ namespace BTL_C_
             if (result == DialogResult.Yes)
             {
                 e.Cancel = false;
+                DBConn.CloseConnection();
             }
             else e.Cancel = true;
         }
