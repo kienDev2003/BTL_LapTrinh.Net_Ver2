@@ -35,6 +35,10 @@ namespace BTL_C_
 
         private void DangNhap(string taiKhoan, string matKhau)
         {
+            bool login = false;
+            string tenNV = "";
+            int ChucVu = 0;
+
             string query = @"SELECT * FROM tblTaiKhoan WHERE TaiKhoan = @taiKhoan
                              AND MatKhau = @matKhau";
             using(SQLiteCommand cmd = new SQLiteCommand(query,DBConn.conn))
@@ -46,17 +50,21 @@ namespace BTL_C_
                 {
                     if (reader.Read())
                     {
-                        string tenNV = reader.GetString(1);
-                        int ChucVu = reader.GetInt32(2);
-
-                        this.Hide();
-                        Form homeForm = new Home(ChucVu,tenNV);
-                        homeForm.ShowDialog();
-                        txtMatKhau.Text = "";
-                        this.Show();
+                        tenNV = reader.GetString(1);
+                        ChucVu = reader.GetInt32(2);
+                        login = true;
                     }
                     else MessageBox.Show("Tài khoản/Mật khẩu không đúng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+
+            if (login)
+            {
+                this.Hide();
+                Form homeForm = new Home(ChucVu, tenNV);
+                homeForm.ShowDialog();
+                txtMatKhau.Text = "";
+                this.Show();
             }
         }
 

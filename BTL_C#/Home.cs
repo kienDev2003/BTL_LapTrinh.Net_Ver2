@@ -13,12 +13,14 @@ namespace BTL_C_
     public partial class Home : Form
     {
         Form formCon = null;
+        int _chucVu = 0;
 
         public Home(int ChucVu, string tenNV)
         {
             InitializeComponent();
 
             lbTenNV.Text = tenNV;
+            _chucVu = ChucVu;
             if (ChucVu != 1)
             {
                 lbChucVu.Text = "Chức Vụ: Nhân Viên";
@@ -125,7 +127,7 @@ namespace BTL_C_
 
         private void lbSanPham_Click(object sender, EventArgs e)
         {
-            Form sanPham = new SanPham();
+            Form sanPham = new SanPham(_chucVu);
             LoadFormCon(sanPham);
         }
 

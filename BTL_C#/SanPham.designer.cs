@@ -1,4 +1,6 @@
-﻿namespace BTL_C_
+﻿using System;
+
+namespace BTL_C_
 {
     partial class SanPham
     {
@@ -169,6 +171,7 @@
             this.btnThem.TabIndex = 7;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click_1);
             // 
             // btnXoa
             // 
@@ -342,6 +345,7 @@
             this.lsvDanhSach.TabIndex = 0;
             this.lsvDanhSach.UseCompatibleStateImageBehavior = false;
             this.lsvDanhSach.View = System.Windows.Forms.View.Details;
+            this.lsvDanhSach.SelectedIndexChanged += new System.EventHandler(this.lsvDanhSach_SelectedIndexChanged_1);
             // 
             // columnHeader1
             // 
@@ -478,12 +482,27 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnTimKiem;
+        private System.Windows.Forms.TextBox txtTkTenSP;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtTkMaSP;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button btnSua;
+        private System.Windows.Forms.Button btnThem;
+        private System.Windows.Forms.Button btnXoa;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.TextBox txtGiaBan;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtSoLuong;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtDungLuong;
+        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtMauSac;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtHang;
@@ -492,21 +511,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtMaSP;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnTimKiem;
-        private System.Windows.Forms.TextBox txtTkTenSP;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtTkMaSP;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnSua;
-        private System.Windows.Forms.Button btnThem;
-        private System.Windows.Forms.TextBox txtGiaBan;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtSoLuong;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtDungLuong;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.Button btnXoa;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListView lsvDanhSach;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -516,7 +522,5 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.GroupBox groupBox5;
     }
 }
