@@ -31,6 +31,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cboTenNCC = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btnReset = new System.Windows.Forms.Button();
@@ -61,8 +63,6 @@
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.txtTkMaDN = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cboTenNCC = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -118,6 +118,27 @@
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Thông tin đơn xuất:";
+            // 
+            // cboTenNCC
+            // 
+            this.cboTenNCC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTenNCC.FormattingEnabled = true;
+            this.cboTenNCC.Items.AddRange(new object[] {
+            "--Chọn SP--"});
+            this.cboTenNCC.Location = new System.Drawing.Point(68, 231);
+            this.cboTenNCC.Name = "cboTenNCC";
+            this.cboTenNCC.Size = new System.Drawing.Size(191, 24);
+            this.cboTenNCC.TabIndex = 21;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(5, 233);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 17);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Tên NCC:";
             // 
             // panel4
             // 
@@ -382,6 +403,7 @@
             this.btnTimKiem.TabIndex = 2;
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // txtTkMaDN
             // 
@@ -399,27 +421,6 @@
             this.label2.Size = new System.Drawing.Size(55, 17);
             this.label2.TabIndex = 2;
             this.label2.Text = "Mã ĐN:";
-            // 
-            // cboTenNCC
-            // 
-            this.cboTenNCC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboTenNCC.FormattingEnabled = true;
-            this.cboTenNCC.Items.AddRange(new object[] {
-            "--Chọn SP--"});
-            this.cboTenNCC.Location = new System.Drawing.Point(68, 231);
-            this.cboTenNCC.Name = "cboTenNCC";
-            this.cboTenNCC.Size = new System.Drawing.Size(191, 24);
-            this.cboTenNCC.TabIndex = 21;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(5, 233);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 17);
-            this.label5.TabIndex = 22;
-            this.label5.Text = "Tên NCC:";
             // 
             // NhapHang
             // 

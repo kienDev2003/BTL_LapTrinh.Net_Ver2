@@ -133,7 +133,7 @@ namespace BTL_C_
                 return;
             }
 
-            bool _1 = SuaSoLuongSanPham(maSP, SLSP,maDN);
+            bool _1 = SuaSoLuongSanPham(maSP, SLSP, maDN);
             bool _2 = ThemDonNhapVaoBang(maDN, tenNV, loaiSP, tenNCC, SLSP, ngayCapNhat);
             bool _3 = ThemDonNhapVaoBangThongKe(maDN, tenNV, loaiSP, SLSP, tenNCC, ngayCapNhat);
 
@@ -163,7 +163,7 @@ namespace BTL_C_
                 cmd.Parameters.AddWithValue("@trangThai", 0);
 
                 int check = cmd.ExecuteNonQuery();
-                if(check > 0)
+                if (check > 0)
                 {
                     return true;
                 }
@@ -198,9 +198,9 @@ namespace BTL_C_
             return false;
         }
 
-        private bool SuaSoLuongSanPham(string maSP, int soLuongSanPhamMoi,string maDN)
+        private bool SuaSoLuongSanPham(string maSP, int soLuongSanPhamMoi, string maDN)
         {
-            if(modSuaSoLuongSanPham == 1)
+            if (modSuaSoLuongSanPham == 1)
             {
                 int soLuongSanPhamTrongKho = LaySoLuongSanPham(maSP);
                 int soLuongSanPhamTungXuat = LaySoLuongSanPhamTungNhap(maDN);
@@ -366,7 +366,7 @@ namespace BTL_C_
                 return;
             }
 
-            bool _1 = SuaSoLuongSanPham(maSP, SLSP,maDN);
+            bool _1 = SuaSoLuongSanPham(maSP, SLSP, maDN);
             bool _2 = SuaDonNhapHang(maDN, tenNV, loaiSP, tenNCC, SLSP, ngayCapNhat);
             bool _3 = SuaDonNhapHangOBangThongKe(maDN, tenNV, loaiSP, SLSP, tenNCC, ngayCapNhat);
 
@@ -480,20 +480,107 @@ namespace BTL_C_
         {
             DBConn.GetConnection();
             string query = "SELECT * FROM tblNhapHang WHERE MaDN = @maDN";
-            using(SQLiteCommand cmd = new SQLiteCommand(query,DBConn.conn))
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
                 cmd.Parameters.AddWithValue("@maDN", maDN);
-                
-                using(SQLiteDataReader reader = cmd.ExecuteReader()) 
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
-                    if(reader.Read())
+                    if (reader.Read())
                     {
                         return true;
                     }
                 }
             }
-            DBConn.CloseConnection() ;
+            DBConn.CloseConnection();
             return false;
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string tkMaDN = txtTkMaDN.Text;
+            string tkTenNV = txtTkTenNV.Text;
+
+            if (tkMaDN != "" && tkTenNV == "") TimKiemTheoMaDN(tkMaDN);
+            if (tkMaDN == "" && tkTenNV != "") TimKiemTheoTenNV(tkTenNV);
+            if (tkMaDN != "" && tkTenNV != "") TimKiemTheoMaDN(tkMaDN);
+            if (tkMaDN == "" && tkTenNV == "")
+            {
+                MessageBox.Show("Vui lòng nhập thông tin tìm kiếm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LoadDanhSachDonNhap();
+            }
+        }
+
+        private void TimKiemTheoTenNV(string tkTenNV)
+        {
+            lsvDanhSach.Items.Clear();
+            DBConn.GetConnection();
+
+            string query = "SELECT * FROM tblNhapHang WHERE TenNV LIKE @tenNV";
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
+            {
+                cmd.Parameters.AddWithValue("@tenNV", "%" + tkTenNV + "%");
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string maDN = reader.GetString(0);
+                        string tenNV = reader.GetString(1);
+                        string loaiSP = reader.GetString(2);
+                        string tenNCC = reader.GetString(3);
+                        string SLSP = reader.GetInt32(4).ToString();
+                        string ngayCapNhat = reader.GetString(5);
+
+                        ListViewItem lvi = new ListViewItem(maDN);
+                        lvi.SubItems.Add(tenNV);
+                        lvi.SubItems.Add(loaiSP);
+                        lvi.SubItems.Add(tenNCC);
+                        lvi.SubItems.Add(SLSP);
+                        lvi.SubItems.Add(ngayCapNhat);
+
+                        lsvDanhSach.Items.Add(lvi);
+                    }
+                }
+            }
+
+            DBConn.CloseConnection();
+        }
+
+        private void TimKiemTheoMaDN(string tkMaDN)
+        {
+            lsvDanhSach.Items.Clear();
+            DBConn.GetConnection();
+
+            string query = "SELECT * FROM tblNhapHang WHERE MaDN = @maDN";
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
+            {
+                cmd.Parameters.AddWithValue("@maDN", tkMaDN);
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string maDN = reader.GetString(0);
+                        string tenNV = reader.GetString(1);
+                        string loaiSP = reader.GetString(2);
+                        string tenNCC = reader.GetString(3);
+                        string SLSP = reader.GetInt32(4).ToString();
+                        string ngayCapNhat = reader.GetString(5);
+
+                        ListViewItem lvi = new ListViewItem(maDN);
+                        lvi.SubItems.Add(tenNV);
+                        lvi.SubItems.Add(loaiSP);
+                        lvi.SubItems.Add(tenNCC);
+                        lvi.SubItems.Add(SLSP);
+                        lvi.SubItems.Add(ngayCapNhat);
+
+                        lsvDanhSach.Items.Add(lvi);
+                    }
+                }
+            }
+
+            DBConn.CloseConnection();
         }
     }
 }

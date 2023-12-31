@@ -116,7 +116,7 @@ namespace BTL_C_
                 return;
             }
 
-            bool _1 = SuaSoLuongSanPham(maSP, SLSP,maDX);
+            bool _1 = SuaSoLuongSanPham(maSP, SLSP, maDX);
             bool _2 = ThemDonXuatVaoBang(maDX, tenKH, loaiSP, SDT, NVXH, SLSP, ngayCapNhat);
             bool _3 = ThemDonXuatVaoBangThongKe(maDX, tenKH, loaiSP, SLSP, NVXH, ngayCapNhat);
 
@@ -146,7 +146,7 @@ namespace BTL_C_
                 cmd.Parameters.AddWithValue("@trangThai", 1);
 
                 int check = cmd.ExecuteNonQuery();
-                if(check > 0)
+                if (check > 0)
                 {
                     return true;
                 }
@@ -182,9 +182,9 @@ namespace BTL_C_
             return false;
         }
 
-        private bool SuaSoLuongSanPham(string maSP, int soLuongSanPhamMoi,string maDX)
+        private bool SuaSoLuongSanPham(string maSP, int soLuongSanPhamMoi, string maDX)
         {
-            if(modSuaSoLuongSanPham == 1)
+            if (modSuaSoLuongSanPham == 1)
             {
                 int soLuongSanPhamTrongKho = LaySoLuongSanPham(maSP);
                 int soLuongSanPhamTungXuat = LaySoLuongSanPhamTungXuat(maDX);
@@ -350,7 +350,7 @@ namespace BTL_C_
                 return;
             }
 
-            bool _1 = SuaSoLuongSanPham(maSP, SLSP,maDX);
+            bool _1 = SuaSoLuongSanPham(maSP, SLSP, maDX);
             bool _2 = SuaDonXuatHang(maDX, tenKH, loaiSP, SDT, NVXH, SLSP, ngayCapNhat);
             bool _3 = SuaDonXuatHangOBangThongKe(maDX, tenKH, loaiSP, SLSP, NVXH, ngayCapNhat);
 
@@ -466,20 +466,111 @@ namespace BTL_C_
         {
             DBConn.GetConnection();
             string query = "SELECT * FROM tblXuatHang WHERE MaDX = @maDX";
-            using(SQLiteCommand cmd = new SQLiteCommand(query,DBConn.conn))
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
                 cmd.Parameters.AddWithValue("@maDX", maDX);
-                
-                using(SQLiteDataReader reader = cmd.ExecuteReader()) 
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
-                    if(reader.Read())
+                    if (reader.Read())
                     {
                         return true;
                     }
                 }
             }
-            DBConn.CloseConnection() ;
+            DBConn.CloseConnection();
             return false;
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string tkMaDX = txtTkMaDX.Text;
+            string tkTenKH = txtTkTenKH.Text;
+
+            if (tkMaDX != "" && tkTenKH == "") TimKiemTheoMaDX(tkMaDX);
+            if (tkMaDX == "" && tkTenKH != "") TimKiemTheoTenKH(tkTenKH);
+            if (tkMaDX != "" && tkTenKH != "") TimKiemTheoMaDX(tkMaDX);
+            if (tkMaDX == "" && tkTenKH == "")
+            {
+                MessageBox.Show("Vui lòng nhập thông tin tìm kiếm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LoadDanhSachDonXuat();
+            }
+        }
+
+        private void TimKiemTheoTenKH(string tkTenKH)
+        {
+            lsvDanhSach.Items.Clear();
+            DBConn.GetConnection();
+
+            string query = "SELECT * FROM tblXuatHang WHERE TenKH LIKE @tenKH";
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
+            {
+                cmd.Parameters.AddWithValue("@tenKH", "%" + tkTenKH + "%");
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string maDX = reader.GetString(0);
+                        string tenKH = reader.GetString(1);
+                        string loaiSP = reader.GetString(2);
+                        string SDT = reader.GetString(3);
+                        string NVXH = reader.GetString(4);
+                        string SLSP = reader.GetInt32(5).ToString();
+                        string ngayCapNhat = reader.GetString(6);
+
+                        ListViewItem lvi = new ListViewItem(maDX);
+                        lvi.SubItems.Add(tenKH);
+                        lvi.SubItems.Add(loaiSP);
+                        lvi.SubItems.Add(SDT);
+                        lvi.SubItems.Add(NVXH);
+                        lvi.SubItems.Add(SLSP);
+                        lvi.SubItems.Add(ngayCapNhat);
+
+                        lsvDanhSach.Items.Add(lvi);
+                    }
+                }
+            }
+
+            DBConn.CloseConnection();
+        }
+
+        private void TimKiemTheoMaDX(string tkMaDX)
+        {
+            lsvDanhSach.Items.Clear();
+            DBConn.GetConnection();
+
+            string query = "SELECT * FROM tblXuatHang WHERE MaDX = @maDX";
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
+            {
+                cmd.Parameters.AddWithValue("@maDX", tkMaDX);
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string maDX = reader.GetString(0);
+                        string tenKH = reader.GetString(1);
+                        string loaiSP = reader.GetString(2);
+                        string SDT = reader.GetString(3);
+                        string NVXH = reader.GetString(4);
+                        string SLSP = reader.GetInt32(5).ToString();
+                        string ngayCapNhat = reader.GetString(6);
+
+                        ListViewItem lvi = new ListViewItem(maDX);
+                        lvi.SubItems.Add(tenKH);
+                        lvi.SubItems.Add(loaiSP);
+                        lvi.SubItems.Add(SDT);
+                        lvi.SubItems.Add(NVXH);
+                        lvi.SubItems.Add(SLSP);
+                        lvi.SubItems.Add(ngayCapNhat);
+
+                        lsvDanhSach.Items.Add(lvi);
+                    }
+                }
+            }
+
+            DBConn.CloseConnection();
         }
     }
 }
