@@ -22,3 +22,4 @@ E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C#.csproj.CoreCompileInputs.cache
 E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C#.csproj.CopyComplete
 E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C#.exe
 E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C#.pdb
+E:\Project_Dev\BTL_C#\BTL_C#\obj\Debug\BTL_C_.NhapHang.resources

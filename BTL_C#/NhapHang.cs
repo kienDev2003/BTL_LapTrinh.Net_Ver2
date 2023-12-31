@@ -11,12 +11,13 @@ using System.Windows.Forms;
 
 namespace BTL_C_
 {
-    public partial class XuatHang : Form
+    public partial class NhapHang : Form
     {
         DBConnection DBConn = new DBConnection();
         int chucVu = 0;
         int modSuaSoLuongSanPham;
-        public XuatHang(int ChucVu, string TenNV)
+
+        public NhapHang(int ChucVu, string TenNV)
         {
             InitializeComponent();
             this.ForeColor = Color.Black;
@@ -25,8 +26,26 @@ namespace BTL_C_
 
             btnSua.Enabled = false;
             btnXoa.Enabled = false;
-            LoadDanhSachDonXuat();
+            LoadDanhSachDonNhap();
             LoadSanPhamLenComboBox();
+            LoadTenNCCLenComboBox();
+        }
+
+        private void LoadTenNCCLenComboBox()
+        {
+            DBConn.GetConnection();
+
+            string query = "SELECT MaNCC,TenNCC FROM tblNCC";
+            using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, DBConn.conn))
+            {
+                DataTable data = new DataTable();
+                adapter.Fill(data);
+                cboTenNCC.DataSource = data;
+                cboTenNCC.DisplayMember = "TenNCC";
+                cboTenNCC.ValueMember = "MaNCC";
+            }
+
+            DBConn.CloseConnection();
         }
 
         private void LoadSanPhamLenComboBox()
@@ -47,31 +66,29 @@ namespace BTL_C_
             DBConn.CloseConnection();
         }
 
-        private void LoadDanhSachDonXuat()
+        private void LoadDanhSachDonNhap()
         {
             lsvDanhSach.Items.Clear();
             DBConn.GetConnection();
 
-            string query = "SELECT * FROM tblXuatHang";
+            string query = "SELECT * FROM tblNhapHang";
             using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        string maDX = reader.GetString(0);
-                        string tenKH = reader.GetString(1);
+                        string maDN = reader.GetString(0);
+                        string tenNV = reader.GetString(1);
                         string loaiSP = reader.GetString(2);
-                        string SDT = reader.GetString(3);
-                        string NVXH = reader.GetString(4);
-                        string SLSP = reader.GetInt32(5).ToString();
-                        string ngayCapNhat = reader.GetString(6);
+                        string tenNCC = reader.GetString(3);
+                        string SLSP = reader.GetInt32(4).ToString();
+                        string ngayCapNhat = reader.GetString(5);
 
-                        ListViewItem lvi = new ListViewItem(maDX);
-                        lvi.SubItems.Add(tenKH);
+                        ListViewItem lvi = new ListViewItem(maDN);
+                        lvi.SubItems.Add(tenNV);
                         lvi.SubItems.Add(loaiSP);
-                        lvi.SubItems.Add(SDT);
-                        lvi.SubItems.Add(NVXH);
+                        lvi.SubItems.Add(tenNCC);
                         lvi.SubItems.Add(SLSP);
                         lvi.SubItems.Add(ngayCapNhat);
 
@@ -82,16 +99,16 @@ namespace BTL_C_
             DBConn.CloseConnection();
         }
 
-        private void btnXuatDon_Click(object sender, EventArgs e)
+        private void btnNhapDon_Click(object sender, EventArgs e)
         {
             modSuaSoLuongSanPham = 0;
 
-            string maDX = txtMaDX.Text;
-            string tenKH = txtTenKH.Text;
+            string maDN = txtMaDN.Text;
+            string tenNV = txtTenNV.Text;
             string loaiSP = cboLoaiSP.Text;
             string maSP = cboLoaiSP.SelectedValue.ToString();
-            string SDT = txtSDT.Text;
-            string NVXH = txtTenNV.Text;
+            string tenNCC = cboTenNCC.Text;
+            string maNCC = cboTenNCC.SelectedValue.ToString();
             int SLSP = 0;
             try
             {
@@ -105,45 +122,45 @@ namespace BTL_C_
             DateTime date = DateTime.Now;
             string ngayCapNhat = $"{date.ToString("hh:mm (dd-MM-yy)")}";
 
-            if (maDX == "" || tenKH == "" || loaiSP == "" || SDT == "" || SLSP == 0)
+            if (maDN == "" || tenNV == "" || loaiSP == "" || tenNCC == "" || SLSP == 0)
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (KiemTraMaDX(maDX) == true)
+            if (KiemTraMaDX(maDN) == true)
             {
-                MessageBox.Show("Trùng mã đơn xuất", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Trùng mã đơn nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            bool _1 = SuaSoLuongSanPham(maSP, SLSP,maDX);
-            bool _2 = ThemDonXuatVaoBang(maDX, tenKH, loaiSP, SDT, NVXH, SLSP, ngayCapNhat);
-            bool _3 = ThemDonXuatVaoBangThongKe(maDX, tenKH, loaiSP, SLSP, NVXH, ngayCapNhat);
+            bool _1 = SuaSoLuongSanPham(maSP, SLSP,maDN);
+            bool _2 = ThemDonNhapVaoBang(maDN, tenNV, loaiSP, tenNCC, SLSP, ngayCapNhat);
+            bool _3 = ThemDonNhapVaoBangThongKe(maDN, tenNV, loaiSP, SLSP, tenNCC, ngayCapNhat);
 
             if (_1 && _2 && _3)
             {
-                MessageBox.Show("Xuất đơn hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadDanhSachDonXuat();
+                MessageBox.Show("Nhập đơn hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadDanhSachDonNhap();
             }
-            else MessageBox.Show("Xuất đơn hàng KHÔNG thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else MessageBox.Show("Nhập đơn hàng KHÔNG thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private bool ThemDonXuatVaoBangThongKe(string maDX, string tenKH, string loaiSP, int sLSP, string nVXH, string ngayCapNhat)
+        private bool ThemDonNhapVaoBangThongKe(string maDN, string tenNV, string loaiSP, int sLSP, string tenNCC, string ngayCapNhat)
         {
             DBConn.GetConnection();
 
             string query = "INSERT INTO tblThongKe (MaDH,TenKH,TenNCC,TenNV,LoaiSP,SLSP,NgayCapNhat,TrangThai) " +
-                            "VALUES (@maDX,@tenKH,@tenNCC,@tenNV,@loaiSP,@sLSP,@ngayCapNhat,@trangThai)";
+                            "VALUES (@maDN,@tenKH,@tenNCC,@tenNV,@loaiSP,@sLSP,@ngayCapNhat,@trangThai)";
             using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
-                cmd.Parameters.AddWithValue("@maDX", maDX);
-                cmd.Parameters.AddWithValue("@tenKH", tenKH);
-                cmd.Parameters.AddWithValue("@tenNCC", "");
-                cmd.Parameters.AddWithValue("@tenNV", nVXH);
+                cmd.Parameters.AddWithValue("@maDN", maDN);
+                cmd.Parameters.AddWithValue("@tenNCC", tenNCC);
+                cmd.Parameters.AddWithValue("@tenKH", "");
+                cmd.Parameters.AddWithValue("@tenNV", tenNV);
                 cmd.Parameters.AddWithValue("@loaiSP", loaiSP);
                 cmd.Parameters.AddWithValue("@sLSP", sLSP);
                 cmd.Parameters.AddWithValue("@ngayCapNhat", ngayCapNhat);
-                cmd.Parameters.AddWithValue("@trangThai", 1);
+                cmd.Parameters.AddWithValue("@trangThai", 0);
 
                 int check = cmd.ExecuteNonQuery();
                 if(check > 0)
@@ -155,19 +172,18 @@ namespace BTL_C_
             return false;
         }
 
-        private bool ThemDonXuatVaoBang(string maDX, string tenKH, string loaiSP, string sDT, string nVXH, int SLSP, string ngayCapNhat)
+        private bool ThemDonNhapVaoBang(string maDN, string tenNV, string loaiSP, string tenNCC, int SLSP, string ngayCapNhat)
         {
             DBConn.GetConnection();
 
-            string query = "INSERT INTO tblXuatHang (MaDX,TenKH,LoaiSP,SDT,NVXH,SLSP,NgayCapNhat) " +
-                            "VALUES (@maDX,@tenKH,@loaiSP,@sDT,@nVXH,@sLSP,@ngayCapNhat)";
+            string query = "INSERT INTO tblNhapHang (MaDN,TenNV,LoaiSP,TenNCC,SLSP,NgayCapNhat) " +
+                            "VALUES (@maDN,@tenNV,@loaiSP,@tenNCC,@sLSP,@ngayCapNhat)";
             using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
-                cmd.Parameters.AddWithValue("@maDX", maDX);
-                cmd.Parameters.AddWithValue("@tenKH", tenKH);
+                cmd.Parameters.AddWithValue("@maDN", maDN);
+                cmd.Parameters.AddWithValue("@tenNV", tenNV);
                 cmd.Parameters.AddWithValue("@loaiSP", loaiSP);
-                cmd.Parameters.AddWithValue("@sDT", sDT);
-                cmd.Parameters.AddWithValue("@nVXH", nVXH);
+                cmd.Parameters.AddWithValue("@tenNCC", tenNCC);
                 cmd.Parameters.AddWithValue("@sLSP", SLSP);
                 cmd.Parameters.AddWithValue("@ngayCapNhat", ngayCapNhat);
 
@@ -182,42 +198,42 @@ namespace BTL_C_
             return false;
         }
 
-        private bool SuaSoLuongSanPham(string maSP, int soLuongSanPhamMoi,string maDX)
+        private bool SuaSoLuongSanPham(string maSP, int soLuongSanPhamMoi,string maDN)
         {
             if(modSuaSoLuongSanPham == 1)
             {
                 int soLuongSanPhamTrongKho = LaySoLuongSanPham(maSP);
-                int soLuongSanPhamTungXuat = LaySoLuongSanPhamTungXuat(maDX);
-                if (soLuongSanPhamMoi > soLuongSanPhamTrongKho)
+                int soLuongSanPhamTungXuat = LaySoLuongSanPhamTungNhap(maDN);
+                if (soLuongSanPhamMoi <= 0)
                 {
-                    MessageBox.Show("Không đủ sản phẩm để xuất", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng nhập số lượng lớn hơn 0", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                int _soLuongSanPham = soLuongSanPhamTrongKho + soLuongSanPhamTungXuat - soLuongSanPhamMoi;
+                int _soLuongSanPham = soLuongSanPhamTrongKho - soLuongSanPhamTungXuat + soLuongSanPhamMoi;
                 bool _suaSoLuong = SuaSoLuong(maSP, _soLuongSanPham);
                 if (_suaSoLuong) return true;
                 return false;
             }
             int soLuongSanPhamCu = LaySoLuongSanPham(maSP);
-            if (soLuongSanPhamMoi > soLuongSanPhamCu)
+            if (soLuongSanPhamMoi <= 0)
             {
-                MessageBox.Show("Không đủ sản phẩm để xuất", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng nhập số lượng lớn hơn 0", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            int soLuongSanPham = soLuongSanPhamCu - soLuongSanPhamMoi;
+            int soLuongSanPham = soLuongSanPhamCu + soLuongSanPhamMoi;
             bool suaSoLuong = SuaSoLuong(maSP, soLuongSanPham);
             if (suaSoLuong) return true;
             return false;
         }
 
-        private int LaySoLuongSanPhamTungXuat(string maDX)
+        private int LaySoLuongSanPhamTungNhap(string maDN)
         {
             DBConn.GetConnection();
 
-            string query = "SELECT SLSP FROM tblXuatHang WHERE MaDX = @maDX";
+            string query = "SELECT SLSP FROM tblNhapHang WHERE MaDN = @maDN";
             using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
-                cmd.Parameters.AddWithValue("@maDX", maDX);
+                cmd.Parameters.AddWithValue("@maDN", maDN);
 
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
@@ -283,31 +299,32 @@ namespace BTL_C_
             {
                 ListViewItem lvi = lsvDanhSach.SelectedItems[0];
 
-                txtMaDX.Text = lvi.SubItems[0].Text;
-                txtTenKH.Text = lvi.SubItems[1].Text;
+                txtMaDN.Text = lvi.SubItems[0].Text;
+                txtTenNV.Text = lvi.SubItems[1].Text;
                 cboLoaiSP.Text = lvi.SubItems[2].Text;
-                txtSDT.Text = lvi.SubItems[3].Text;
-                txtTenNV.Text = lvi.SubItems[4].Text;
-                txtSLSP.Text = lvi.SubItems[5].Text;
+                cboTenNCC.Text = lvi.SubItems[3].Text;
+                txtSLSP.Text = lvi.SubItems[4].Text;
 
                 btnSua.Enabled = true;
                 btnXoa.Enabled = true;
                 cboLoaiSP.Enabled = false;
+                cboTenNCC.Enabled = false;
             }
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            txtMaDX.Text = "";
-            txtTenKH.Text = "";
+            txtMaDN.Text = "";
+            txtTenNV.Text = "";
             cboLoaiSP.SelectedIndex = 0;
-            txtSDT.Text = "";
+            cboTenNCC.SelectedIndex = 0;
             txtTenNV.Text = "";
             txtSLSP.Text = "";
 
             btnXoa.Enabled = false;
             btnSua.Enabled = false;
             cboLoaiSP.Enabled = true;
+            cboTenNCC.Enabled = true;
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -320,12 +337,11 @@ namespace BTL_C_
 
             modSuaSoLuongSanPham = 1;
 
-            string maDX = txtMaDX.Text;
-            string tenKH = txtTenKH.Text;
+            string maDN = txtMaDN.Text;
+            string tenNV = txtTenNV.Text;
             string loaiSP = cboLoaiSP.Text;
             string maSP = cboLoaiSP.SelectedValue.ToString();
-            string SDT = txtSDT.Text;
-            string NVXH = txtTenNV.Text;
+            string tenNCC = cboTenNCC.Text;
             int SLSP = 0;
             try
             {
@@ -339,40 +355,40 @@ namespace BTL_C_
             DateTime date = DateTime.Now;
             string ngayCapNhat = $"{date.ToString("hh:mm (dd-MM-yy)")}";
 
-            if (maDX == "" || tenKH == "" || loaiSP == "" || SDT == "" || SLSP == 0)
+            if (maDN == "" || tenNV == "" || loaiSP == "" || tenNCC == "" || SLSP == 0)
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (KiemTraMaDX(maDX) == false)
+            if (KiemTraMaDX(maDN) == false)
             {
                 MessageBox.Show("Mã đơn xuất hàng không tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            bool _1 = SuaSoLuongSanPham(maSP, SLSP,maDX);
-            bool _2 = SuaDonXuatHang(maDX, tenKH, loaiSP, SDT, NVXH, SLSP, ngayCapNhat);
-            bool _3 = SuaDonXuatHangOBangThongKe(maDX, tenKH, loaiSP, SLSP, NVXH, ngayCapNhat);
+            bool _1 = SuaSoLuongSanPham(maSP, SLSP,maDN);
+            bool _2 = SuaDonNhapHang(maDN, tenNV, loaiSP, tenNCC, SLSP, ngayCapNhat);
+            bool _3 = SuaDonNhapHangOBangThongKe(maDN, tenNV, loaiSP, SLSP, tenNCC, ngayCapNhat);
 
             if (_1 && _2 && _3)
             {
-                MessageBox.Show("Sửa thông tin xuất hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadDanhSachDonXuat();
+                MessageBox.Show("Sửa thông tin nhập hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadDanhSachDonNhap();
                 btnSua.Enabled = false;
                 btnXoa.Enabled = false;
             }
-            else MessageBox.Show("Sửa thông tin xuất hàng KHÔNG thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else MessageBox.Show("Sửa thông tin nhập hàng KHÔNG thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private bool SuaDonXuatHangOBangThongKe(string maDX, string tenKH, string loaiSP, int sLSP, string nVXH, string ngayCapNhat)
+        private bool SuaDonNhapHangOBangThongKe(string maDN, string tenNV, string loaiSP, int sLSP, string tenNCC, string ngayCapNhat)
         {
             DBConn.GetConnection();
 
-            string query = "UPDATE tblThongKe SET TenKH = @tenKH,LoaiSP = @loaiSP,SLSP = @sLSP,NgayCapNhat = @ngayCapNhat WHERE MaDH = @maDX";
+            string query = "UPDATE tblThongKe SET TenNCC = @tenNCC,SLSP = @sLSP,NgayCapNhat = @ngayCapNhat WHERE MaDH = @maDN";
             using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
-                cmd.Parameters.AddWithValue("@maDX", maDX);
-                cmd.Parameters.AddWithValue("@tenKH", tenKH);
+                cmd.Parameters.AddWithValue("@maDN", maDN);
+                cmd.Parameters.AddWithValue("@tenNCC", tenNCC);
                 cmd.Parameters.AddWithValue("@loaiSP", loaiSP);
                 cmd.Parameters.AddWithValue("@sLSP", sLSP);
                 cmd.Parameters.AddWithValue("@ngayCapNhat", ngayCapNhat);
@@ -387,17 +403,15 @@ namespace BTL_C_
             return false;
         }
 
-        private bool SuaDonXuatHang(string maDX, string tenKH, string loaiSP, string sDT, string nVXH, int sLSP, string ngayCapNhat)
+        private bool SuaDonNhapHang(string maDN, string tenNV, string loaiSP, string tenNCC, int sLSP, string ngayCapNhat)
         {
             DBConn.GetConnection();
 
-            string query = "UPDATE tblXuatHang SET TenKH = @tenKH,LoaiSP = @loaiSP,SDT = @sDT,SLSP = @sLSP,NgayCapNhat = @ngayCapNhat WHERE MaDX = @maDX";
+            string query = "UPDATE tblNhapHang SET TenNCC = @tenNCC,SLSP = @sLSP,NgayCapNhat = @ngayCapNhat WHERE MaDN = @maDN";
             using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
-                cmd.Parameters.AddWithValue("@maDX", maDX);
-                cmd.Parameters.AddWithValue("@tenKH", tenKH);
-                cmd.Parameters.AddWithValue("@loaiSP", loaiSP);
-                cmd.Parameters.AddWithValue("@sDT", sDT);
+                cmd.Parameters.AddWithValue("@maDN", maDN);
+                cmd.Parameters.AddWithValue("@tenNCC", tenNCC);
                 cmd.Parameters.AddWithValue("@sLSP", sLSP);
                 cmd.Parameters.AddWithValue("@ngayCapNhat", ngayCapNhat);
 
@@ -419,56 +433,56 @@ namespace BTL_C_
                 MessageBox.Show("Bạn không được quyền xóa đơn xuất hàng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            string maDX = txtMaDX.Text;
+            string maDN = txtMaDN.Text;
             string maSP = cboLoaiSP.SelectedValue.ToString();
             DialogResult result = MessageBox.Show("Bạn muốn xóa đơn Xuất Hàng ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 int soLuongTrongKho = LaySoLuongSanPham(maSP);
-                int soLuongTungXuat = LaySoLuongSanPhamTungXuat(maDX);
-                int slsp = soLuongTrongKho + soLuongTungXuat;
+                int soLuongTungNhap = LaySoLuongSanPhamTungNhap(maDN);
+                int slsp = soLuongTrongKho - soLuongTungNhap;
                 SuaSoLuong(maSP, slsp);
-                XoaDonXuatHang(maDX);
-                LoadDanhSachDonXuat();
+                XoaDonNhapHang(maDN);
+                LoadDanhSachDonNhap();
                 btnXoa.Enabled = false;
                 btnSua.Enabled = false;
             }
         }
 
-        private void XoaDonXuatHang(string maDX)
+        private void XoaDonNhapHang(string maDN)
         {
-            if (KiemTraMaDX(maDX) == false)
+            if (KiemTraMaDX(maDN) == false)
             {
-                MessageBox.Show("Mã đơn xuất hàng không tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Mã đơn Nhập hàng không tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             DBConn.GetConnection();
 
-            string query = "DELETE FROM tblXuatHang WHERE MaDX = @maDX;" +
-                            "DELETE FROM tblThongKe WHERE MaDH = @maDX AND TrangThai = 1;";
+            string query = "DELETE FROM tblNhapHang WHERE MaDN = @maDN;" +
+                            "DELETE FROM tblThongKe WHERE MaDH = @maDN AND TrangThai = 0";
 
             using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
-                cmd.Parameters.AddWithValue("@maDX", maDX);
+                cmd.Parameters.AddWithValue("@maDN", maDN);
 
                 int check = cmd.ExecuteNonQuery();
                 if (check > 0)
                 {
-                    MessageBox.Show("Xóa đơn xuất hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Xóa đơn nhập hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else MessageBox.Show("Xóa đơn xuất hàng KHÔNG thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else MessageBox.Show("Xóa đơn nhập hàng KHÔNG thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             DBConn.CloseConnection();
 
         }
 
-        private bool KiemTraMaDX(string maDX)
+        private bool KiemTraMaDX(string maDN)
         {
             DBConn.GetConnection();
-            string query = "SELECT * FROM tblXuatHang WHERE MaDX = @maDX";
+            string query = "SELECT * FROM tblNhapHang WHERE MaDN = @maDN";
             using(SQLiteCommand cmd = new SQLiteCommand(query,DBConn.conn))
             {
-                cmd.Parameters.AddWithValue("@maDX", maDX);
+                cmd.Parameters.AddWithValue("@maDN", maDN);
                 
                 using(SQLiteDataReader reader = cmd.ExecuteReader()) 
                 {

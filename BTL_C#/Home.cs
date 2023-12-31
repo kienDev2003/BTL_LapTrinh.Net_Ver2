@@ -33,6 +33,7 @@ namespace BTL_C_
             else lbChucVu.Text = "Chức Vụ: Quản Lý";
             lbNgayGio.Text = $"{DateTime.Now.DayOfWeek} ({DateTime.Now.ToString("dd-MM-yyyy")})";
             lbCopyright.Text = $"Copyright © {DateTime.Now.Year} | By Nhóm 4";
+            lbTrangChu.ForeColor = Color.Yellow;
         }
 
         private void LoadFormCon(Form form)
@@ -52,89 +53,64 @@ namespace BTL_C_
 
         private void lbTrangChu_MouseHover(object sender, EventArgs e)
         {
-            lbTrangChu.ForeColor = Color.Yellow;
             lbTrangChu.Cursor = Cursors.Hand;
-        }
-
-        private void lbTrangChu_MouseLeave(object sender, EventArgs e)
-        {
-            lbTrangChu.ForeColor = Color.White;
         }
 
         private void lbSanPham_MouseHover(object sender, EventArgs e)
         {
-            lbSanPham.ForeColor = Color.Yellow;
             lbSanPham.Cursor = Cursors.Hand;
-        }
-
-        private void lbSanPham_MouseLeave(object sender, EventArgs e)
-        {
-            lbSanPham.ForeColor = Color.White;
         }
 
         private void lbXuatHang_MouseHover(object sender, EventArgs e)
         {
-            lbXuatHang.ForeColor = Color.Yellow;
             lbXuatHang.Cursor = Cursors.Hand;
-        }
-
-        private void lbXuatHang_MouseLeave(object sender, EventArgs e)
-        {
-            lbXuatHang.ForeColor = Color.White;
         }
 
         private void lbNhapHang_MouseHover(object sender, EventArgs e)
         {
-            lbNhapHang.ForeColor = Color.Yellow;
             lbNhapHang.Cursor = Cursors.Hand;
-        }
-
-        private void lbNhapHang_MouseLeave(object sender, EventArgs e)
-        {
-            lbNhapHang.ForeColor = Color.White;
         }
 
         private void lbNhaCungCap_MouseHover(object sender, EventArgs e)
         {
-            lbNhaCungCap.ForeColor = Color.Yellow;
             lbNhaCungCap.Cursor = Cursors.Hand;
-        }
-
-        private void lbNhaCungCap_MouseLeave(object sender, EventArgs e)
-        {
-            lbNhaCungCap.ForeColor = Color.White;
         }
 
         private void lbNhanVien_MouseHover(object sender, EventArgs e)
         {
-            lbNhanVien.ForeColor = Color.Yellow;
             lbNhanVien.Cursor = Cursors.Hand;
-        }
-
-        private void lbNhanVien_MouseLeave(object sender, EventArgs e)
-        {
-            lbNhanVien.ForeColor = Color.White;
         }
 
         private void lbThongKe_MouseHover(object sender, EventArgs e)
         {
-            lbThongKe.ForeColor = Color.Yellow;
             lbThongKe.Cursor = Cursors.Hand;
-        }
-
-        private void lbThongKe_MouseLeave(object sender, EventArgs e)
-        {
-            lbThongKe.ForeColor = Color.White;
         }
 
         private void lbSanPham_Click(object sender, EventArgs e)
         {
+            lbSanPham.ForeColor = Color.Yellow;
+
+            lbTrangChu.ForeColor = Color.White;
+            lbNhapHang.ForeColor = Color.White;
+            lbXuatHang.ForeColor = Color.White;
+            lbNhaCungCap.ForeColor = Color.White;
+            lbNhanVien.ForeColor = Color.White;
+            lbThongKe.ForeColor = Color.White;
             Form sanPham = new SanPham(_chucVu);
             LoadFormCon(sanPham);
         }
 
         private void lbTrangChu_Click(object sender, EventArgs e)
         {
+            lbTrangChu.ForeColor = Color.Yellow;
+
+            lbNhapHang.ForeColor = Color.White;
+            lbSanPham.ForeColor = Color.White;
+            lbXuatHang.ForeColor = Color.White;
+            lbNhaCungCap.ForeColor = Color.White;
+            lbNhanVien.ForeColor = Color.White;
+            lbThongKe.ForeColor = Color.White;
+
             if (formCon != null)
             {
                 formCon.Close();
@@ -143,8 +119,31 @@ namespace BTL_C_
 
         private void lbXuatHang_Click(object sender, EventArgs e)
         {
+            lbXuatHang.ForeColor = Color.Yellow;
+
+            lbTrangChu.ForeColor = Color.White;
+            lbSanPham.ForeColor = Color.White;
+            lbNhapHang.ForeColor = Color.White;
+            lbNhaCungCap.ForeColor = Color.White;
+            lbNhanVien.ForeColor = Color.White;
+            lbThongKe.ForeColor = Color.White;
             Form xuatHang = new XuatHang(_chucVu,_tenNV);
             LoadFormCon(xuatHang);
+        }
+
+        private void lbNhapHang_Click(object sender, EventArgs e)
+        {
+            lbNhapHang.ForeColor = Color.Yellow;
+
+            lbTrangChu.ForeColor = Color.White;
+            lbSanPham.ForeColor = Color.White;
+            lbXuatHang.ForeColor = Color.White;
+            lbNhaCungCap.ForeColor = Color.White;
+            lbNhanVien.ForeColor = Color.White;
+            lbThongKe.ForeColor = Color.White;
+
+            Form nhapHang = new NhapHang(_chucVu, _tenNV);
+            LoadFormCon(nhapHang);
         }
     }
 }
