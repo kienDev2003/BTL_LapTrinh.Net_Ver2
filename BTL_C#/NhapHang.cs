@@ -15,12 +15,14 @@ namespace BTL_C_
     {
         DBConnection DBConn = new DBConnection();
         int chucVu = 0;
+        string tenNV = "";
         int modSuaSoLuongSanPham;
 
         public NhapHang(int ChucVu, string TenNV)
         {
             InitializeComponent();
             this.ForeColor = Color.Black;
+            tenNV = TenNV;
             txtTenNV.Text = TenNV;
             chucVu = ChucVu;
 
@@ -141,6 +143,7 @@ namespace BTL_C_
             {
                 MessageBox.Show("Nhập đơn hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadDanhSachDonNhap();
+                ResetTextBox();
             }
             else MessageBox.Show("Nhập đơn hàng KHÔNG thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -314,11 +317,16 @@ namespace BTL_C_
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            ResetTextBox();
+        }
+
+        private void ResetTextBox()
+        {
             txtMaDN.Text = "";
             txtTenNV.Text = "";
             cboLoaiSP.SelectedIndex = 0;
             cboTenNCC.SelectedIndex = 0;
-            txtTenNV.Text = "";
+            txtTenNV.Text = tenNV;
             txtSLSP.Text = "";
 
             btnXoa.Enabled = false;
@@ -374,8 +382,7 @@ namespace BTL_C_
             {
                 MessageBox.Show("Sửa thông tin nhập hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadDanhSachDonNhap();
-                btnSua.Enabled = false;
-                btnXoa.Enabled = false;
+                ResetTextBox();
             }
             else MessageBox.Show("Sửa thông tin nhập hàng KHÔNG thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -444,8 +451,7 @@ namespace BTL_C_
                 SuaSoLuong(maSP, slsp);
                 XoaDonNhapHang(maDN);
                 LoadDanhSachDonNhap();
-                btnXoa.Enabled = false;
-                btnSua.Enabled = false;
+                ResetTextBox();
             }
         }
 

@@ -214,6 +214,7 @@
             this.btnReset.TabIndex = 30;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnXoa
             // 
@@ -224,6 +225,7 @@
             this.btnXoa.TabIndex = 29;
             this.btnXoa.Text = "Xóa NCC";
             this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnSua
             // 
@@ -234,6 +236,7 @@
             this.btnSua.TabIndex = 28;
             this.btnSua.Text = "Sửa TT";
             this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnThem
             // 
@@ -244,6 +247,7 @@
             this.btnThem.TabIndex = 27;
             this.btnThem.Text = "Thêm NCC";
             this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // panel2
             // 
@@ -283,6 +287,7 @@
             this.lsvDanhSach.TabIndex = 0;
             this.lsvDanhSach.UseCompatibleStateImageBehavior = false;
             this.lsvDanhSach.View = System.Windows.Forms.View.Details;
+            this.lsvDanhSach.SelectedIndexChanged += new System.EventHandler(this.lsvDanhSach_SelectedIndexChanged);
             // 
             // columnHeader1
             // 

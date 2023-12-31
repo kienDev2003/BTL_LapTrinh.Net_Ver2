@@ -157,7 +157,7 @@ namespace BTL_C_
             lbNhanVien.ForeColor = Color.White;
             lbThongKe.ForeColor = Color.White;
 
-            Form nhaCC = new NhaCungCap(_chucVu, _tenNV);
+            Form nhaCC = new NhaCungCap();
             LoadFormCon(nhaCC);
         }
     }

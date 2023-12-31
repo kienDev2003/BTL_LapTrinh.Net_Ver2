@@ -109,7 +109,10 @@ namespace BTL_C_
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            if (KiemTraMaSP(maSP) == false) ThemSanPham(maSP,tenSP,hangSP,mauSac,dungLuong,soLuong,giaBan,ngayCapNhat);
+            if (KiemTraMaSP(maSP) == false)
+            {
+                ThemSanPham(maSP, tenSP, hangSP, mauSac, dungLuong, soLuong, giaBan, ngayCapNhat);
+            }
             else MessageBox.Show("Mã sản phẩm bị trùng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -135,6 +138,7 @@ namespace BTL_C_
                 {
                     MessageBox.Show("Thêm sản phẩm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadDanhSachSanPham();
+                    XoaTrangTextBox();
                 }
                 else MessageBox.Show("Thêm sản phẩm KHÔNG thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
