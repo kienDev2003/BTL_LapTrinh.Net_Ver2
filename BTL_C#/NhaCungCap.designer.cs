@@ -59,6 +59,7 @@
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.txtTkMaNCC = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -276,7 +277,8 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5});
             this.lsvDanhSach.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvDanhSach.FullRowSelect = true;
             this.lsvDanhSach.GridLines = true;
@@ -292,17 +294,17 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Mã NCC";
-            this.columnHeader1.Width = 126;
+            this.columnHeader1.Width = 100;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Tên NCC";
-            this.columnHeader2.Width = 229;
+            this.columnHeader2.Width = 169;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Số Điện Thoại";
-            this.columnHeader3.Width = 193;
+            this.columnHeader3.Width = 130;
             // 
             // columnHeader4
             // 
@@ -360,6 +362,7 @@
             this.btnTimKiem.TabIndex = 15;
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // txtTkMaNCC
             // 
@@ -377,6 +380,11 @@
             this.label2.Size = new System.Drawing.Size(63, 17);
             this.label2.TabIndex = 16;
             this.label2.Text = "Mã NCC:";
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Ngày cập nhât";
+            this.columnHeader5.Width = 140;
             // 
             // NhaCungCap
             // 
@@ -437,5 +445,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.TextBox txtTenNCC;
         private System.Windows.Forms.TextBox txtTkTenNCC;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }

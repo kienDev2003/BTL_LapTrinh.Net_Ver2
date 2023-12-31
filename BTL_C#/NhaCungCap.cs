@@ -81,7 +81,7 @@ namespace BTL_C_
             string sDT = txtSDT.Text;
             string diaChi = txtDiaChi.Text;
             DateTime date = DateTime.Now;
-            string ngayCapNhat = $"{date.ToString("hh:mm (dd-MM-yy)")}";
+            string ngayCapNhat = $"{date.ToString("HH:mm (dd-MM-yy)")}";
 
             if (maNCC == "" || tenNCC == "" || sDT == "" || diaChi == "")
             {
@@ -102,7 +102,7 @@ namespace BTL_C_
 
             string query = "INSERT INTO tblNCC (MaNCC,TenNCC,SDT,DiaChi,NgayCapNhat) " +
                             "VALUES (@maNCC,@tenNCC,@sDT,@diaChi,@ngayCapNhat)";
-            using(SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
                 cmd.Parameters.AddWithValue("@maNCC", maNCC);
                 cmd.Parameters.AddWithValue("@tenNCC", tenNCC);
@@ -130,14 +130,14 @@ namespace BTL_C_
             string sDT = txtSDT.Text;
             string diaChi = txtDiaChi.Text;
             DateTime date = DateTime.Now;
-            string ngayCapNhat = $"{date.ToString("hh:mm (dd-MM-yy)")}";
+            string ngayCapNhat = $"{date.ToString("HH:mm (dd-MM-yy)")}";
 
             if (maNCC == "" || tenNCC == "" || sDT == "" || diaChi == "")
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if(KiemTraMaNCC(maNCC) == false)
+            if (KiemTraMaNCC(maNCC) == false)
             {
                 MessageBox.Show("Mã nhà cung cấp không tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -150,7 +150,7 @@ namespace BTL_C_
             DBConn.GetConnection();
 
             string query = "UPDATE tblNCC SET TenNCC = @tenNCC,SDT = @sDT,DiaChi = @diaChi,NgayCapNhat = @ngayCapNhat WHERE MaNCC = @maNCC";
-            using(SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
                 cmd.Parameters.AddWithValue("@maNCC", maNCC);
                 cmd.Parameters.AddWithValue("@tenNCC", tenNCC);
@@ -159,7 +159,7 @@ namespace BTL_C_
                 cmd.Parameters.AddWithValue("@ngayCapNhat", ngayCapNhat);
 
                 int check = cmd.ExecuteNonQuery();
-                if(check > 0)
+                if (check > 0)
                 {
                     MessageBox.Show("Sửa thông tin nhà cung cấp thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadDanhSachNhaCC();
@@ -176,13 +176,13 @@ namespace BTL_C_
             DBConn.GetConnection();
 
             string query = "SELECT * FROM tblNCC WHERE MaNCC = @maNCC";
-            using(SQLiteCommand cmd = new SQLiteCommand(query,DBConn.conn))
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
                 cmd.Parameters.AddWithValue("@maNCC", maNCC);
 
-                using(SQLiteDataReader reader = cmd.ExecuteReader())
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
-                    if(reader.Read())
+                    if (reader.Read())
                     {
                         return true;
                     }
@@ -216,7 +216,7 @@ namespace BTL_C_
             DBConn.GetConnection();
 
             string query = "DELETE FROM tblNCC WHERE MaNCC = @maNCC";
-            using(SQLiteCommand cmd = new SQLiteCommand(query,DBConn.conn))
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
             {
                 cmd.Parameters.AddWithValue("@maNCC", maNCC);
 
@@ -246,6 +246,89 @@ namespace BTL_C_
 
             btnSua.Enabled = false;
             btnXoa.Enabled = false;
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string tkMaNCC = txtTkMaNCC.Text;
+            string tkTenNCC = txtTkTenNCC.Text;
+
+            if (tkMaNCC != "" && tkTenNCC == "") TimKiemTheoMaNCC(tkMaNCC);
+            if (tkMaNCC == "" && tkTenNCC != "") TimKiemTheoTenNCC(tkTenNCC);
+            if (tkMaNCC != "" && tkTenNCC != "") TimKiemTheoMaNCC(tkMaNCC);
+            if (tkMaNCC == "" && tkTenNCC == "")
+            {
+                MessageBox.Show("Vui lòng nhập thông tin tìm kiếm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LoadDanhSachNhaCC();
+            }
+        }
+
+        private void TimKiemTheoTenNCC(string tkTenNCC)
+        {
+            lsvDanhSach.Items.Clear();
+            DBConn.GetConnection();
+
+            string query = "SELECT * FROM tblNCC WHERE TenNCC LIKE @tenNCC";
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
+            {
+                cmd.Parameters.AddWithValue("@tenNCC", "%" + tkTenNCC + "%");
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string maNCC = reader.GetString(0);
+                        string tenNCC = reader.GetString(1);
+                        string SDT = reader.GetString(2);
+                        string diaChi = reader.GetString(3);
+                        string ngayCapNhat = reader.GetString(4);
+
+                        ListViewItem lvi = new ListViewItem(maNCC);
+                        lvi.SubItems.Add(tenNCC);
+                        lvi.SubItems.Add(SDT);
+                        lvi.SubItems.Add(diaChi);
+                        lvi.SubItems.Add(ngayCapNhat);
+
+                        lsvDanhSach.Items.Add(lvi);
+                    }
+                }
+            }
+
+            DBConn.CloseConnection();
+        }
+
+        private void TimKiemTheoMaNCC(string tkMaNCC)
+        {
+            lsvDanhSach.Items.Clear();
+            DBConn.GetConnection();
+
+            string query = "SELECT * FROM tblNCC WHERE MaNCC = @maNCC";
+            using (SQLiteCommand cmd = new SQLiteCommand(query, DBConn.conn))
+            {
+                cmd.Parameters.AddWithValue("@maNCC", tkMaNCC);
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string maNCC = reader.GetString(0);
+                        string tenNCC = reader.GetString(1);
+                        string SDT = reader.GetString(2);
+                        string diaChi = reader.GetString(3);
+                        string ngayCapNhat = reader.GetString(4);
+
+                        ListViewItem lvi = new ListViewItem(maNCC);
+                        lvi.SubItems.Add(tenNCC);
+                        lvi.SubItems.Add(SDT);
+                        lvi.SubItems.Add(diaChi);
+                        lvi.SubItems.Add(ngayCapNhat);
+
+                        lsvDanhSach.Items.Add(lvi);
+                    }
+                }
+            }
+
+            DBConn.CloseConnection();
         }
     }
 }

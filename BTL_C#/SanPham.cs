@@ -102,7 +102,7 @@ namespace BTL_C_
             }
 
             DateTime date = DateTime.Now;
-            string ngayCapNhat = $"{date.ToString("hh:mm (dd-MM-yy)")}";
+            string ngayCapNhat = $"{date.ToString("HH:mm (dd-MM-yy)")}";
 
             if (maSP == "" || tenSP == "" || hangSP == "" || mauSac == "" || dungLuong == 0 || giaBan == 0)
             {
@@ -206,7 +206,7 @@ namespace BTL_C_
             }
 
             DateTime date = DateTime.Now;
-            string ngayCapNhat = $"{date.ToString("hh:mm (dd-MM-yy)")}";
+            string ngayCapNhat = $"{date.ToString("HH:mm (dd-MM-yy)")}";
 
             if (maSP == "" || tenSP == "" || hangSP == "" || mauSac == "" || dungLuong == 0 || giaBan == 0)
             {
