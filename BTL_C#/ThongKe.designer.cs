@@ -30,6 +30,8 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtTenNCC = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.txtTenKH = new System.Windows.Forms.TextBox();
             this.txtTrangThai = new System.Windows.Forms.TextBox();
             this.txtSLSP = new System.Windows.Forms.TextBox();
@@ -56,6 +58,7 @@
             this._1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this._2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this._3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -67,9 +70,6 @@
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.txtTkMaDH = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtTenNCC = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -119,6 +119,24 @@
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Thông tin chi tiết:";
+            // 
+            // txtTenNCC
+            // 
+            this.txtTenNCC.Location = new System.Drawing.Point(83, 165);
+            this.txtTenNCC.Name = "txtTenNCC";
+            this.txtTenNCC.ReadOnly = true;
+            this.txtTenNCC.Size = new System.Drawing.Size(153, 23);
+            this.txtTenNCC.TabIndex = 71;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(6, 168);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(69, 17);
+            this.label11.TabIndex = 70;
+            this.label11.Text = "Tên NCC:";
             // 
             // txtTenKH
             // 
@@ -314,6 +332,7 @@
             this.btnXuatFile.TabIndex = 35;
             this.btnXuatFile.Text = "Xuất file(xlsx)";
             this.btnXuatFile.UseVisualStyleBackColor = true;
+            this.btnXuatFile.Click += new System.EventHandler(this.btnXuatFile_Click);
             // 
             // panel2
             // 
@@ -373,6 +392,11 @@
             // 
             this._3.Text = "Tên KH";
             this._3.Width = 103;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Tên NCC";
+            this.columnHeader8.Width = 113;
             // 
             // columnHeader4
             // 
@@ -463,29 +487,6 @@
             this.label2.Size = new System.Drawing.Size(55, 17);
             this.label2.TabIndex = 26;
             this.label2.Text = "Mã ĐH:";
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Tên NCC";
-            this.columnHeader8.Width = 113;
-            // 
-            // txtTenNCC
-            // 
-            this.txtTenNCC.Location = new System.Drawing.Point(83, 165);
-            this.txtTenNCC.Name = "txtTenNCC";
-            this.txtTenNCC.ReadOnly = true;
-            this.txtTenNCC.Size = new System.Drawing.Size(153, 23);
-            this.txtTenNCC.TabIndex = 71;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(6, 168);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(69, 17);
-            this.label11.TabIndex = 70;
-            this.label11.Text = "Tên NCC:";
             // 
             // ThongKe
             // 

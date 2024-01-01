@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace BTL_C_
 {
@@ -216,6 +218,42 @@ namespace BTL_C_
             }
 
             DBConn.CloseConnection();
+        }
+
+        private void btnXuatFile_Click(object sender, EventArgs e)
+        {
+            XuatRaExcel(lsvDanhSach);
+        }
+
+        private void XuatRaExcel(ListView listView)
+        {
+            Excel.Application excelApp = new Excel.Application();
+            excelApp.Visible = true;
+            Excel.Workbook workbook = excelApp.Workbooks.Add();
+            Excel.Worksheet worksheet = (Excel.Worksheet)workbook.ActiveSheet;
+
+            worksheet.Cells.Font.Name = "Times New Roman";
+            worksheet.Cells.Font.Size = 14;
+            worksheet.Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            worksheet.Cells.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+            // Ghi tiêu đề cột
+            for (int i = 0; i < listView.Columns.Count; i++)
+            {
+                worksheet.Cells[1, i + 1] = listView.Columns[i].Text;
+            }
+
+            // Ghi dữ liệu từ ListView
+            for (int i = 0; i < listView.Items.Count; i++)
+            {
+                for (int j = 0; j < listView.Items[i].SubItems.Count; j++)
+                {
+                    worksheet.Cells[i + 2, j + 1] = listView.Items[i].SubItems[j].Text;
+                }
+            }
+
+            worksheet.Cells.EntireRow.AutoFit();
+            worksheet.Cells.EntireColumn.AutoFit();
         }
     }
 }
