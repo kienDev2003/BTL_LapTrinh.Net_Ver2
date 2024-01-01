@@ -88,6 +88,12 @@
     <Compile Include="NhaCungCap.designer.cs">
       <DependentUpon>NhaCungCap.cs</DependentUpon>
     </Compile>
+    <Compile Include="NhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanVien.designer.cs">
+      <DependentUpon>NhanVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="NhapHang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,12 @@
     </Compile>
     <Compile Include="SanPham.designer.cs">
       <DependentUpon>SanPham.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThongKe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThongKe.designer.cs">
+      <DependentUpon>ThongKe.cs</DependentUpon>
     </Compile>
     <Compile Include="XuatHang.cs">
       <SubType>Form</SubType>
@@ -117,6 +129,9 @@
     <EmbeddedResource Include="NhaCungCap.resx">
       <DependentUpon>NhaCungCap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien.resx">
+      <DependentUpon>NhanVien.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NhapHang.resx">
       <DependentUpon>NhapHang.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,6 +147,9 @@
     </Compile>
     <EmbeddedResource Include="SanPham.resx">
       <DependentUpon>SanPham.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThongKe.resx">
+      <DependentUpon>ThongKe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XuatHang.resx">
       <DependentUpon>XuatHang.cs</DependentUpon>

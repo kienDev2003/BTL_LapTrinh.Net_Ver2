@@ -160,5 +160,35 @@ namespace BTL_C_
             Form nhaCC = new NhaCungCap();
             LoadFormCon(nhaCC);
         }
+
+        private void lbNhanVien_Click(object sender, EventArgs e)
+        {
+            lbNhanVien.ForeColor = Color.Yellow;
+
+            lbTrangChu.ForeColor = Color.White;
+            lbSanPham.ForeColor = Color.White;
+            lbXuatHang.ForeColor = Color.White;
+            lbNhapHang.ForeColor = Color.White;
+            lbNhaCungCap.ForeColor = Color.White;
+            lbThongKe.ForeColor = Color.White;
+
+            Form nhanVien = new NhanVien();
+            LoadFormCon(nhanVien);
+        }
+
+        private void lbThongKe_Click(object sender, EventArgs e)
+        {
+            lbThongKe.ForeColor = Color.Yellow;
+
+            lbTrangChu.ForeColor = Color.White;
+            lbSanPham.ForeColor = Color.White;
+            lbXuatHang.ForeColor = Color.White;
+            lbNhapHang.ForeColor = Color.White;
+            lbNhaCungCap.ForeColor = Color.White;
+            lbNhanVien.ForeColor = Color.White;
+
+            Form thongKe = new ThongKe();
+            LoadFormCon(thongKe);
+        }
     }
 }

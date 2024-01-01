@@ -195,6 +195,7 @@
             this.lbThongKe.Size = new System.Drawing.Size(95, 25);
             this.lbThongKe.TabIndex = 13;
             this.lbThongKe.Text = "Thống kê";
+            this.lbThongKe.Click += new System.EventHandler(this.lbThongKe_Click);
             this.lbThongKe.MouseHover += new System.EventHandler(this.lbThongKe_MouseHover);
             // 
             // pictureBox8
@@ -216,6 +217,7 @@
             this.lbNhanVien.Size = new System.Drawing.Size(100, 25);
             this.lbNhanVien.TabIndex = 11;
             this.lbNhanVien.Text = "Nhân viên";
+            this.lbNhanVien.Click += new System.EventHandler(this.lbNhanVien_Click);
             this.lbNhanVien.MouseHover += new System.EventHandler(this.lbNhanVien_MouseHover);
             // 
             // pictureBox7
