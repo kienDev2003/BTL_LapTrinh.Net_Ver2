@@ -31,6 +31,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radQuanLy = new System.Windows.Forms.RadioButton();
+            this.radNhanVien = new System.Windows.Forms.RadioButton();
             this.txtTenNV = new System.Windows.Forms.TextBox();
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -62,8 +64,6 @@
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.txtTkMaNV = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.radNhanVien = new System.Windows.Forms.RadioButton();
-            this.radQuanLy = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -120,6 +120,28 @@
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Thông tin nhân viên:";
+            // 
+            // radQuanLy
+            // 
+            this.radQuanLy.AutoSize = true;
+            this.radQuanLy.Location = new System.Drawing.Point(163, 171);
+            this.radQuanLy.Name = "radQuanLy";
+            this.radQuanLy.Size = new System.Drawing.Size(75, 21);
+            this.radQuanLy.TabIndex = 58;
+            this.radQuanLy.TabStop = true;
+            this.radQuanLy.Text = "Quản lý";
+            this.radQuanLy.UseVisualStyleBackColor = true;
+            // 
+            // radNhanVien
+            // 
+            this.radNhanVien.AutoSize = true;
+            this.radNhanVien.Location = new System.Drawing.Point(66, 171);
+            this.radNhanVien.Name = "radNhanVien";
+            this.radNhanVien.Size = new System.Drawing.Size(90, 21);
+            this.radNhanVien.TabIndex = 57;
+            this.radNhanVien.TabStop = true;
+            this.radNhanVien.Text = "Nhân viên";
+            this.radNhanVien.UseVisualStyleBackColor = true;
             // 
             // txtTenNV
             // 
@@ -226,7 +248,7 @@
             // btnReset
             // 
             this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.Location = new System.Drawing.Point(155, 69);
+            this.btnReset.Location = new System.Drawing.Point(133, 69);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(108, 28);
             this.btnReset.TabIndex = 34;
@@ -237,7 +259,7 @@
             // btnXoa
             // 
             this.btnXoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXoa.Location = new System.Drawing.Point(21, 69);
+            this.btnXoa.Location = new System.Drawing.Point(14, 69);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(108, 28);
             this.btnXoa.TabIndex = 33;
@@ -248,7 +270,7 @@
             // btnSua
             // 
             this.btnSua.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSua.Location = new System.Drawing.Point(155, 26);
+            this.btnSua.Location = new System.Drawing.Point(133, 26);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(108, 28);
             this.btnSua.TabIndex = 32;
@@ -259,7 +281,7 @@
             // btnThem
             // 
             this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThem.Location = new System.Drawing.Point(21, 26);
+            this.btnThem.Location = new System.Drawing.Point(14, 26);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(108, 28);
             this.btnThem.TabIndex = 31;
@@ -408,28 +430,6 @@
             this.label2.Size = new System.Drawing.Size(54, 17);
             this.label2.TabIndex = 21;
             this.label2.Text = "Mã NV:";
-            // 
-            // radNhanVien
-            // 
-            this.radNhanVien.AutoSize = true;
-            this.radNhanVien.Location = new System.Drawing.Point(66, 171);
-            this.radNhanVien.Name = "radNhanVien";
-            this.radNhanVien.Size = new System.Drawing.Size(90, 21);
-            this.radNhanVien.TabIndex = 57;
-            this.radNhanVien.TabStop = true;
-            this.radNhanVien.Text = "Nhân viên";
-            this.radNhanVien.UseVisualStyleBackColor = true;
-            // 
-            // radQuanLy
-            // 
-            this.radQuanLy.AutoSize = true;
-            this.radQuanLy.Location = new System.Drawing.Point(163, 171);
-            this.radQuanLy.Name = "radQuanLy";
-            this.radQuanLy.Size = new System.Drawing.Size(75, 21);
-            this.radQuanLy.TabIndex = 58;
-            this.radQuanLy.TabStop = true;
-            this.radQuanLy.Text = "Quản lý";
-            this.radQuanLy.UseVisualStyleBackColor = true;
             // 
             // NhanVien
             // 

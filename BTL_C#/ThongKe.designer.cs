@@ -315,7 +315,7 @@
             // btnReset
             // 
             this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.Location = new System.Drawing.Point(153, 67);
+            this.btnReset.Location = new System.Drawing.Point(127, 67);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(108, 28);
             this.btnReset.TabIndex = 38;
@@ -326,7 +326,7 @@
             // btnXuatFile
             // 
             this.btnXuatFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXuatFile.Location = new System.Drawing.Point(19, 67);
+            this.btnXuatFile.Location = new System.Drawing.Point(11, 67);
             this.btnXuatFile.Name = "btnXuatFile";
             this.btnXuatFile.Size = new System.Drawing.Size(108, 28);
             this.btnXuatFile.TabIndex = 35;
